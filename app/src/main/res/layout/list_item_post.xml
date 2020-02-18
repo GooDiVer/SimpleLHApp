@@ -37,7 +37,6 @@
                 android:id="@+id/post_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:scaleType="centerCrop"
                 app:postImage="@{article}"
                 tool:src="@mipmap/ic_launcher_round" />
         </androidx.cardview.widget.CardView>

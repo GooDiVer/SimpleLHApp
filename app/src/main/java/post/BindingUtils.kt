@@ -6,11 +6,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.simplelifehackerapp.R
 import database.pojo.Article
 import kotlinx.android.synthetic.main.list_item_post.view.*
+
+@BindingAdapter("listData")
+fun RecyclerView.setListData(data: List<Article>?) {
+    val adapter = this.adapter as PostAdapter
+    adapter.submitList(data)
+}
 
 @BindingAdapter("postStatus")
 fun postStatus(imageView: ImageView, status: PostViewModel.PostStatus?) {

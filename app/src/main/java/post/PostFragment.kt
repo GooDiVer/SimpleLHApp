@@ -37,10 +37,11 @@ class PostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         list_post.adapter = adapter
+//
+//        viewModel.posts.observe(viewLifecycleOwner, Observer {
+//            adapter.submitList(it)
+//        })
 
-        viewModel.posts.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
         viewModel.showSnackbarEvent.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 Snackbar.make(
