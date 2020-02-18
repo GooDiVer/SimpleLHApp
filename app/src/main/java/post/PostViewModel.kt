@@ -11,9 +11,18 @@ import kotlinx.coroutines.*
 import java.lang.Exception
 
 class PostViewModel(private val retrofit: LHService) : ViewModel() {
+    enum class PostStatus {
+        LOADING,
+        DONE,
+        ERROR
+    }
     private val _posts = MutableLiveData<List<Article>>()
     val posts: LiveData<List<Article>>
         get() = _posts
+
+    private val _status = MutableLiveData<PostStatus>()
+    val status: LiveData<PostStatus>
+        get() = _status
 
     private val _navigateToDetailPost = MutableLiveData<Article>()
     val navigateToDetailPost: LiveData<Article>
@@ -22,11 +31,15 @@ class PostViewModel(private val retrofit: LHService) : ViewModel() {
     init {
         viewModelScope.launch {
             try {
+                _status.value = PostStatus.LOADING
                 val response = retrofit.getPosts()
                 if (response.isSuccessful) {
+                    _status.value = PostStatus.DONE
                     _posts.value = response.body()
                 }
             } catch (e: Exception) {
+                _status.value = PostStatus.ERROR
+                _posts.value = ArrayList()
                 e.printStackTrace()
             }
         }

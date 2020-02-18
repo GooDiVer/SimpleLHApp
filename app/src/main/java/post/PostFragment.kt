@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.simplelifehackerapp.R
+import com.example.simplelifehackerapp.databinding.FragmentPostBinding
 import kotlinx.android.synthetic.main.fragment_post.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -21,15 +22,15 @@ class PostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_post, container, false)
-
+        val binding = FragmentPostBinding.inflate(inflater)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         adapter = PostAdapter(DetailPostListener { article ->
             viewModel.onDetailPostClicked(article)
         })
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
-        (activity as AppCompatActivity).supportActionBar?.hide()
-
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

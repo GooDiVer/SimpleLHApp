@@ -12,13 +12,32 @@ import com.example.simplelifehackerapp.R
 import database.pojo.Article
 import kotlinx.android.synthetic.main.list_item_post.view.*
 
+@BindingAdapter("postStatus")
+fun postStatus(imageView: ImageView, status: PostViewModel.PostStatus?) {
+    when (status) {
+        PostViewModel.PostStatus.LOADING -> {
+            imageView.visibility = View.VISIBLE
+            imageView.setImageResource(R.drawable.loading_animation)
+        }
+        PostViewModel.PostStatus.ERROR -> {
+            imageView.visibility = View.VISIBLE
+            imageView.setImageResource(R.drawable.ic_report_problem_black_24dp)
+        }
+        PostViewModel.PostStatus.DONE -> {
+            imageView.visibility = View.GONE
+        }
+    }
+}
+
 @BindingAdapter("postImage")
 fun setPostImage(imageView: ImageView, article: Article) {
     Glide.with(imageView.context)
         .load(article.catCover.sizes.mobile)
-        .apply(RequestOptions()
-            .placeholder(R.drawable.loading_animation)
-            .error(R.drawable.ic_broken_image_black_24dp))
+        .apply(
+            RequestOptions()
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_broken_image_black_24dp)
+        )
         .centerCrop()
         .into(imageView)
 }
