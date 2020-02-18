@@ -12,12 +12,12 @@ import database.pojo.Article
 import kotlinx.android.synthetic.main.list_item_post.view.*
 
 @BindingAdapter("postImage")
-fun ImageView.setPostImage(article: Article) {
-    Glide.with(this.context)
+fun setPostImage(imageView: ImageView, article: Article) {
+    Glide.with(imageView.context)
         .load(article.catCover.sizes.mobile)
         .placeholder(R.drawable.ic_broken_image_black_24dp)
         .centerCrop()
-        .into(this)
+        .into(imageView)
 }
 
 @BindingAdapter("postArticle")

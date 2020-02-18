@@ -20,10 +20,7 @@
         android:layout_height="wrap_content"
         android:onClick="@{() -> clickListener.onClick(article)}"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:padding="8dp"
         android:background = "?attr/selectableItemBackground"
         >
 
