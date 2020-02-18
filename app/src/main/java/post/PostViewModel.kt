@@ -16,6 +16,11 @@ class PostViewModel(private val retrofit: LHService) : ViewModel() {
         DONE,
         ERROR
     }
+
+    private val _showSnackbarEvent = MutableLiveData<Boolean>()
+    val showSnackbarEvent: LiveData<Boolean>
+        get() = _showSnackbarEvent
+
     private val _posts = MutableLiveData<List<Article>>()
     val posts: LiveData<List<Article>>
         get() = _posts
@@ -40,9 +45,18 @@ class PostViewModel(private val retrofit: LHService) : ViewModel() {
             } catch (e: Exception) {
                 _status.value = PostStatus.ERROR
                 _posts.value = ArrayList()
+                onShackBarShow()
                 e.printStackTrace()
             }
         }
+    }
+
+    fun onShackBarShow() {
+        _showSnackbarEvent.value = true
+    }
+
+    fun doneShowShackbar() {
+        _showSnackbarEvent.value = false
     }
 
     fun onDetailPostClicked(article: Article) {
